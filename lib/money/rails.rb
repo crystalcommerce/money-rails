@@ -6,13 +6,13 @@ class Money
 
     module ClassMethods
       def money(method_name, options = {})
-        defaluts = {
+        defaults = {
           :allow_nil       => false,
           :subunit_column  =>
             "#{method_name}_#{Money::Rails.config.subunit_column_ext || 'cents'}",
           :currency_column =>
             "#{method_name}_#{Money::Rails.config.currency_column_ext || 'currency'}" }
-        options = defaluts.merge(options)
+        options = defaults.merge(options)
 
         composed_of(method_name,
           :class_name => "Money",
