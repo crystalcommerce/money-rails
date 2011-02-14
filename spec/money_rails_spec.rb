@@ -21,6 +21,10 @@ class Product < ActiveRecord::Base
   money :price
 end
 
+class ProductAllowingNil < Product
+  money :price, :allow_nil => true
+end
+
 class CustomProduct < ActiveRecord::Base
   money :price, :subunit_column  => 'price_subunit',
                 :currency_column => 'price_currency_string'
@@ -50,6 +54,15 @@ describe "Money::Rails' method" do
     it "accepts a string" do
       subject = Product.new(:price => "5.00")
       subject.price.should == Money.new(500, 'USD')
+    end
+
+    it 'does not accept nil by default' do
+      lambda { subject.price = nil }.should raise_error
+    end
+
+    it 'accepts nil if allowed' do
+      subject = ProductAllowingNil.new(:price => Money.new(1000, 'USD'))
+      lambda { subject.price = nil }.should_not raise_error
     end
   end
 

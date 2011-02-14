@@ -33,3 +33,9 @@ In all cases:
 
     w = Widget.new(:price => "5.00")
     w.price # => Money.new(500, 'USD')
+
+If you want to allow nil (see rails' composed_of docs for more info):
+
+    class Widget
+      money :price, :allow_nil => true
+    end

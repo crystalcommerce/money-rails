@@ -7,6 +7,7 @@ class Money
     module ClassMethods
       def money(method_name, options = {})
         defaluts = {
+          :allow_nil       => false,
           :subunit_column  =>
             "#{method_name}_#{Money::Rails.config.subunit_column_ext || 'cents'}",
           :currency_column =>
@@ -15,6 +16,7 @@ class Money
 
         composed_of(method_name,
           :class_name => "Money",
+          :allow_nil => options[:allow_nil],
           :mapping => [ [options[:subunit_column],  "cents"],
                         [options[:currency_column], "currency_as_string"] ],
           :constructor => Proc.new { |cents, currency|
