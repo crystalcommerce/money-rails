@@ -12,7 +12,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
-  activesupport
+  activerecord (> 2.3.8)
+  activesupport (> 2.3.8)
   money (> 3.0.3)
   sqlite3-ruby
